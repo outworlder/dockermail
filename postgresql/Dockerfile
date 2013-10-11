@@ -13,10 +13,14 @@ ENV PGDATA /etc/postgresql/9.1/main
 ADD pg_hba.conf /etc/postgresql/9.1/main/
 ADD pg_ident.conf /etc/postgresql/9.1/main/
 ADD postgresql.conf /etc/postgresql/9.1/main/
+ADD postgresql-startup.sh /usr/bin/
 
-USER postgres
+RUN chmod +x /usr/bin/postgresql-startup.sh
 
 EXPOSE 5432
-CMD ["/usr/lib/postgresql/9.1/bin/pg_ctl", "start"]
+
+CMD ["/usr/bin/postgresql-startup.sh"]
+
+# CMD ["/usr/lib/postgresql/9.1/bin/pg_ctl", "start"]
 
 VOLUME /database
